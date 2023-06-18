@@ -1,15 +1,19 @@
 ﻿using MelonLoader;
 using HarmonyLib;
+using UnityEngine;
 
 
 namespace TosDev
 {
     public class MyMod : MelonMod
     {
-        public virtual void OnInitializeMelon()
+
+        override public void OnInitializeMelon()
         {
-            new Harmony("MyMod").PatchAll();
+
             ((MelonBase)this).LoggerInstance.Msg("QoL modifications loaded");
+            
+
         }
     }
 }

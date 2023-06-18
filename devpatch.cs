@@ -7,27 +7,25 @@ using System.Threading.Tasks;
 using HarmonyLib;
 using Game.Simulation;
 using System.Reflection;
-
+using MelonLoader;
 
 namespace TosDev
 {
     [HarmonyPatch(typeof(GameSimulation), "get_userLevel")]
-    internal class Devpatch
+    public class Devpatch
     {
 
 
-        
-        [HarmonyPrefix]
-        internal static bool Prefix()
+        internal static bool Prefix(out StateProperty<int> __result)
         {
 
-            Type exampleType = typeof(GameSimulation);
-            MethodInfo set_userLevel = exampleType.GetMethod("set_userLevel");
-            set_userLevel.Invoke(null, new object[] { 3 });
+            Melon<MyMod>.Logger.Msg("started postfix");
 
-            MethodInfo get_userLevel = exampleType.GetMethod("get_userLevel");
-            get_userLevel.Invoke(null, new object[] {});
-            return true;
+            var cadt = new StateProperty<int>(3);
+            Melon<MyMod>.Logger.Msg(cadt);
+            __result = cadt;
+
+            return false;
         }
     }
 }
